@@ -41,6 +41,14 @@ namespace backend.Data
                 .WithMany(r => r.Favorites)
                 .HasForeignKey(uf => uf.RadarDataId)
                 .OnDelete(DeleteBehavior.Cascade);
+                modelBuilder.Entity<RadarData>()
+    .HasIndex(r => r.Country);
+
+modelBuilder.Entity<RadarData>()
+    .HasIndex(r => r.Category);
+
+modelBuilder.Entity<RadarData>()
+    .HasIndex(r => new { r.Country, r.Category });
         }
     }
 }
