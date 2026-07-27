@@ -18,11 +18,11 @@ namespace backend.Services
         }
 
         // Favorilere Yeni Fırsat Ekleme
-        public async Task<ApiResponse<UserFavoriteDto>> AddFavoriteAsync(CreateUserFavoriteDto dto)
+        public async Task<ApiResponse<UserFavoriteDto>> AddFavoriteAsync(Guid userId, CreateUserFavoriteDto dto)
         {
             var favorite = new UserFavorite
             {
-                UserId = dto.UserId,
+                UserId = userId,
                 RadarDataId = dto.RadarDataId,
                 Note = dto.Note,
                 CreatedAt = DateTime.UtcNow

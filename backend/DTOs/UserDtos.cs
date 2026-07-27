@@ -33,4 +33,11 @@ namespace backend.DTOs
         [Required]
         public string Password { get; set; } = string.Empty;
     }
+
+    public class LoginResponseDto
+    {
+        public UserDto User { get; set; } = null!;
+        public string AccessToken { get; set; } = string.Empty;
+        public DateTime ExpiresAt { get; set; }
+    }
 }

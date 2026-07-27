@@ -7,7 +7,7 @@ namespace backend.Interfaces
     public interface ISavedSearchService
     {
         // Aramayı kaydeder
-        Task<ApiResponse<SavedSearchDto>> SaveSearchAsync(CreateSavedSearchDto dto);
+        Task<ApiResponse<SavedSearchDto>> SaveSearchAsync(Guid userId, CreateSavedSearchDto dto);
 
         // Kullanıcının kayıtlı aramalarını listeler
         Task<ApiResponse<List<SavedSearchDto>>> GetUserSavedSearchesAsync(Guid userId);

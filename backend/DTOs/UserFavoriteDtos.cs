@@ -6,9 +6,6 @@ namespace backend.DTOs
     public class CreateUserFavoriteDto
     {
         [Required]
-        public Guid UserId { get; set; }
-
-        [Required]
         public long RadarDataId { get; set; }
 
         public string? Note { get; set; }
