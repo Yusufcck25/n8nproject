@@ -29,7 +29,7 @@ namespace backend.Services
             {
                 Id = Guid.NewGuid(),
                 Email = dto.Email,
-                PasswordHash = dto.Password, // (2. Görevde BCrypt ile şifrelenecek)
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
                 FullName = dto.FullName,
                 CreatedAt = DateTime.UtcNow
             };
@@ -51,9 +51,23 @@ namespace backend.Services
         // Kullanıcı Giriş Kontrolü
         public async Task<ApiResponse<UserDto>> LoginAsync(LoginDto dto)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == dto.Email && u.PasswordHash == dto.Password);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
             if (user == null)
                 return ApiResponse<UserDto>.ErrorResult("E-posta adresi veya şifre hatalı.");
+
+            var usesBcrypt = user.PasswordHash.StartsWith("$2", StringComparison.Ordinal);
+            var passwordIsValid = usesBcrypt
+                ? BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash)
+                : dto.Password == user.PasswordHash;
+
+            if (!passwordIsValid)
+                return ApiResponse<UserDto>.ErrorResult("E-posta adresi veya şifre hatalı.");
+
+            if (!usesBcrypt)
+            {
+                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+                await _context.SaveChangesAsync();
+            }
 
             var userDto = new UserDto
             {

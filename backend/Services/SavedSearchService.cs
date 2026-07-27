@@ -18,11 +18,11 @@ namespace backend.Services
         }
 
         // Yeni Pazar Araması Kaydetme
-        public async Task<ApiResponse<SavedSearchDto>> SaveSearchAsync(CreateSavedSearchDto dto)
+        public async Task<ApiResponse<SavedSearchDto>> SaveSearchAsync(Guid userId, CreateSavedSearchDto dto)
         {
             var savedSearch = new SavedSearch
             {
-                UserId = dto.UserId,
+                UserId = userId,
                 SearchQuery = dto.Name,
                 Filters = dto.SearchQueryJson,
                 CreatedAt = DateTime.UtcNow

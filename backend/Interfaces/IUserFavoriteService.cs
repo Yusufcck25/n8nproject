@@ -7,7 +7,7 @@ namespace backend.Interfaces
     public interface IUserFavoriteService
     {
         // Favoriye ekler
-        Task<ApiResponse<UserFavoriteDto>> AddFavoriteAsync(CreateUserFavoriteDto dto);
+        Task<ApiResponse<UserFavoriteDto>> AddFavoriteAsync(Guid userId, CreateUserFavoriteDto dto);
 
         // Favoriden çıkarır
         Task<ApiResponse<bool>> RemoveFavoriteAsync(int favoriteId, Guid userId);

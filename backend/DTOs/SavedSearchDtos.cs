@@ -6,9 +6,6 @@ namespace backend.DTOs
     public class CreateSavedSearchDto
     {
         [Required]
-        public Guid UserId { get; set; }
-
-        [Required]
         public string Name { get; set; } = string.Empty;
 
         public string SearchQueryJson { get; set; } = "{}";
