@@ -98,8 +98,8 @@ namespace backend.Services
         public async Task<ApiResponse<bool>> BulkInsertAsync(List<RadarDataDto> dtos, string apiKey)
         {
             // API Key Güvenlik Kontrolü
-            var validApiKey = _configuration["N8nSettings:ApiKey"] ?? "N8N_SECRET_KEY_12345";
-            if (apiKey != validApiKey)
+            var validApiKey = _configuration["N8nSettings:ApiKey"];
+            if (string.IsNullOrWhiteSpace(validApiKey) || apiKey != validApiKey)
                 return ApiResponse<bool>.ErrorResult("Yetkisiz n8n erişimi! Geçersiz API Key.");
 
             // DTO -> Entity dönüşümü ve veritabanına ekleme

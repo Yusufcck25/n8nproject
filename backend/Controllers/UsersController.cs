@@ -83,7 +83,8 @@ namespace backend.Controllers
                 claims:
                 [
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Email, user.Email)
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Role, user.Role)
                 ],
                 expires: expiresAt,
                 signingCredentials: credentials);

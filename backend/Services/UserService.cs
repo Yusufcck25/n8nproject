@@ -42,6 +42,7 @@ namespace backend.Services
                 Id = user.Id,
                 Email = user.Email,
                 FullName = user.FullName,
+                Role = user.Role,
                 CreatedAt = user.CreatedAt
             };
 
@@ -74,6 +75,7 @@ namespace backend.Services
                 Id = user.Id,
                 Email = user.Email,
                 FullName = user.FullName,
+                Role = user.Role,
                 CreatedAt = user.CreatedAt
             };
 
@@ -92,6 +94,7 @@ namespace backend.Services
                 Id = user.Id,
                 Email = user.Email,
                 FullName = user.FullName,
+                Role = user.Role,
                 CreatedAt = user.CreatedAt
             };
 
