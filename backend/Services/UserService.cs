@@ -4,6 +4,7 @@ using backend.DTOs;
 using backend.Entities;
 using backend.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using BCrypt.Net;
 
 namespace backend.Services
 {
@@ -29,7 +30,7 @@ namespace backend.Services
             {
                 Id = Guid.NewGuid(),
                 Email = dto.Email,
-                PasswordHash = dto.Password, // (2. Görevde BCrypt ile şifrelenecek)
+               PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
                 FullName = dto.FullName,
                 CreatedAt = DateTime.UtcNow
             };
@@ -51,9 +52,13 @@ namespace backend.Services
         // Kullanıcı Giriş Kontrolü
         public async Task<ApiResponse<UserDto>> LoginAsync(LoginDto dto)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == dto.Email && u.PasswordHash == dto.Password);
-            if (user == null)
-                return ApiResponse<UserDto>.ErrorResult("E-posta adresi veya şifre hatalı.");
+var user = await _context.Users.FirstOrDefaultAsync(
+    u => u.Email == dto.Email);
+
+if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
+{
+    return ApiResponse<UserDto>.ErrorResult("E-posta adresi veya şifre hatalı.");
+}
 
             var userDto = new UserDto
             {
