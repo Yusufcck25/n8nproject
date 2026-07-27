@@ -4,6 +4,7 @@ using backend.DTOs;
 using backend.Entities;
 using backend.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using BCrypt.Net;
 
 namespace backend.Services
 {
