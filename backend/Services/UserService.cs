@@ -30,11 +30,7 @@ namespace backend.Services
             {
                 Id = Guid.NewGuid(),
                 Email = dto.Email,
-<<<<<<< HEAD
-               PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
-=======
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
->>>>>>> bf9b1bcd80c09e0c56918f3bc8b87662e8d5cfd8
                 FullName = dto.FullName,
                 CreatedAt = DateTime.UtcNow
             };
