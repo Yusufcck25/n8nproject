@@ -3,9 +3,11 @@ using backend.Data;
 using backend.Interfaces;
 using backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.RateLimiting;
 
@@ -105,6 +107,10 @@ app.UseExceptionHandler(errorApp =>
 {
     errorApp.Run(async context =>
     {
+        var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+        var traceId = Activity.Current?.TraceId.ToString() ?? context.TraceIdentifier;
+        app.Logger.LogError(exception, "Beklenmeyen hata. TraceId: {TraceId}", traceId);
+
         context.Response.StatusCode = StatusCodes.Status500InternalServerError;
         context.Response.ContentType = "application/json";
         await context.Response.WriteAsJsonAsync(

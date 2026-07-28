@@ -1,3 +1,6 @@
+using System.Text.Json.Serialization;
+using System.Diagnostics;
+
 namespace backend.Common
 {
     public class ApiResponse<T>
@@ -5,6 +8,8 @@ namespace backend.Common
         public bool Success { get; set; }
         public string Message { get; set; } = string.Empty;
         public T? Data { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string? TraceId { get; set; }
 
         public static ApiResponse<T> SuccessResult(T data, string message = "İşlem başarılı.")
         {
@@ -16,13 +21,14 @@ namespace backend.Common
             };
         }
 
-        public static ApiResponse<T> ErrorResult(string message)
+        public static ApiResponse<T> ErrorResult(string message, string? traceId = null)
         {
             return new ApiResponse<T> 
             { 
                 Success = false, 
                 Message = message, 
-                Data = default 
+                Data = default,
+                TraceId = traceId ?? Activity.Current?.TraceId.ToString()
             };
         }
     }
