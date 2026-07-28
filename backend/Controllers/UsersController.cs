@@ -3,6 +3,7 @@ using backend.DTOs;
 using backend.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -37,6 +38,7 @@ namespace backend.Controllers
 
         // Kullanıcı girişi
         [AllowAnonymous]
+        [EnableRateLimiting("login")]
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
