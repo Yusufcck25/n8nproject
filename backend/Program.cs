@@ -1,3 +1,4 @@
+using backend.Common;
 using backend.Data;
 using backend.Interfaces;
 using backend.Services;
@@ -99,6 +100,17 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
+
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+        context.Response.ContentType = "application/json";
+        await context.Response.WriteAsJsonAsync(
+            ApiResponse<object>.ErrorResult("Beklenmeyen bir hata oluştu. Lütfen daha sonra tekrar deneyin."));
+    });
+});
 
 // Geliştirme ortamında Swagger arayüzünü aktif et
 if (app.Environment.IsDevelopment())
