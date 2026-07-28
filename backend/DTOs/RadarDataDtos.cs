@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace backend.DTOs
 {
     // Mobil uygulamadan gelen arama ve sayfalama filtreleri
@@ -7,7 +9,10 @@ namespace backend.DTOs
         public string? Category { get; set; }
         public string? SearchTerm { get; set; }
         public double? MinOpportunityScore { get; set; }
+        [Range(1, 10_000)]
         public int Page { get; set; } = 1;
+
+        [Range(1, 100)]
         public int PageSize { get; set; } = 10;
     }
 

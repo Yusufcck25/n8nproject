@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace backend.Controllers
 {
@@ -24,7 +25,7 @@ namespace backend.Controllers
 
         // Son logları getirir
         [HttpGet]
-        public async Task<IActionResult> GetLogs([FromQuery] int count = 20)
+        public async Task<IActionResult> GetLogs([FromQuery, Range(1, 100)] int count = 20)
         {
             var result = await _syncLogService.GetLogsAsync(count);
             return Ok(result);
