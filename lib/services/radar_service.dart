@@ -48,4 +48,14 @@ class RadarService {
 
     return RadarPageResult.fromJson(Map<String, dynamic>.from(body['data'] as Map));
   }
+
+  Future<RadarOpportunity> getOpportunityById(int id) async {
+    final response = await _apiService.get('${ApiConstants.radarData}/$id');
+    final body = jsonDecode(response.body) as Map<String, dynamic>;
+    if (response.statusCode != 200 || body['success'] != true || body['data'] is! Map) {
+      throw Exception(body['message'] as String? ?? 'Fırsat detayı alınamadı.');
+    }
+
+    return RadarOpportunity.fromJson(Map<String, dynamic>.from(body['data'] as Map));
+  }
 }

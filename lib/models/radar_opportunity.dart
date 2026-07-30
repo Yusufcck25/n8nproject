@@ -6,6 +6,7 @@ class RadarOpportunity {
     required this.country,
     required this.category,
     required this.opportunityScore,
+    required this.rawData,
     required this.createdAt,
   });
 
@@ -15,6 +16,7 @@ class RadarOpportunity {
   final String country;
   final String category;
   final double? opportunityScore;
+  final String rawData;
   final DateTime createdAt;
 
   factory RadarOpportunity.fromJson(Map<String, dynamic> json) {
@@ -25,6 +27,7 @@ class RadarOpportunity {
       country: json['country'] as String? ?? '',
       category: json['category'] as String? ?? '',
       opportunityScore: (json['opportunityScore'] as num?)?.toDouble(),
+      rawData: json['rawData'] as String? ?? '{}',
       createdAt: DateTime.tryParse(json['createdAt'] as String? ?? '') ?? DateTime.now(),
     );
   }

@@ -7,6 +7,7 @@ import '../../services/radar_service.dart';
 import '../../services/saved_search_service.dart';
 import '../admin/sync_logs_page.dart';
 import '../favorites/favorites_page.dart';
+import 'radar_detail_page.dart';
 import '../saved_searches/saved_searches_page.dart';
 
 class RadarPage extends StatefulWidget {
@@ -107,6 +108,13 @@ class _RadarPageState extends State<RadarPage> {
 
   Future<void> _openSyncLogs() async {
     await Navigator.push(context, MaterialPageRoute<void>(builder: (_) => const SyncLogsPage()));
+  }
+
+  Future<void> _openOpportunityDetail(RadarOpportunity opportunity) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute<void>(builder: (_) => RadarDetailPage(opportunityId: opportunity.id)),
+    );
   }
 
   Map<String, dynamic> _currentFilters() {
@@ -357,9 +365,12 @@ class _RadarPageState extends State<RadarPage> {
 
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12),
+        onTap: () => _openOpportunityDetail(item),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
@@ -391,6 +402,7 @@ class _RadarPageState extends State<RadarPage> {
               ],
             ),
           ],
+          ),
         ),
       ),
     );
