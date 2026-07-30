@@ -1,9 +1,12 @@
-<<<<<<< HEAD
-# export_radar_app
+# n8nproject
+
+Yapay Zeka destekli ihracat ve yurt dışı alım talepleri mobil uygulaması
+
+## export_radar_app
 
 A new Flutter project.
 
-## Getting Started
+### Getting Started
 
 This project is a starting point for a Flutter application.
 
@@ -16,7 +19,3 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
-=======
-# n8nproject
-Yapay Zeka destekli ihracat ve yurt dışı alım talepleri mobil uygulaması
->>>>>>> aa999ad75342ac5517eab8ad8c708c47a642eb9b
